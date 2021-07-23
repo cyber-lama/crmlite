@@ -10,6 +10,7 @@
         "symfony/var-dumper": "^5.3"
     },
     "require": {
-        "ext-json": "*"
+        "ext-json": "*",
+      "ext-http": "*"
     }
 }

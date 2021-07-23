@@ -2,9 +2,12 @@
 
 namespace App\Kernel;
 
+
+use http\Exception;
+
 class App
 {
-    public $routeComponent;
+    public RouteComponent $routeComponent;
     public $db;
 
     public function __construct()
