@@ -3,6 +3,7 @@
 namespace App\Kernel;
 
 
+use App\Exception\HttpNotFoundException;
 use http\Exception;
 
 class App
@@ -17,6 +18,10 @@ class App
 
     public function run(): string
     {
-        return $this->routeComponent->run();
+        try {
+            return $this->routeComponent->run();
+        } catch (HttpNotFoundException $e) {
+            return $this->routeComponent->notFoundPage();
+        }
     }
 }

@@ -40,17 +40,23 @@ class RouteComponent
      */
     public function add(string $uri, array $route)
     {
+        $initClass = new $route[0];
         if (count($route) !== 2) {
-            throw new HttpServerException("Роут должен содердать класс и название метода", 500);
+            throw new Exception("Роут должен содердать класс и название метода", 500);
         }
-        if (!(new $route[0]) instanceof Controller) {
-            throw new HttpServerException("Класс должен быть контроллером");
+        if (!($initClass) instanceof Controller) {
+            throw new Exception("Класс должен быть контроллером");
         }
-        if (!method_exists(new $route[0], $route[1])){
-            throw new HttpServerException("У класса нет метода с именем " . $route[1]);
+        if (!method_exists($initClass, $route[1])){
+            throw new Exception("У класса [{$route[0]}] нет метода с именем " . $route[1]);
         }
 
         $this->routes[$uri] = $route;
+    }
+
+    public function notFoundPage()
+    {
+        return include __DIR__ . '/../../public/notFound.php';
     }
 
 }
