@@ -14,7 +14,7 @@ try {
 }
 
 
-$app->run();
+die($app->run());
 
 
 
