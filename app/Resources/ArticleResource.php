@@ -2,7 +2,7 @@
 
 namespace App\Resources;
 
-class UserResource extends Resource
+class ArticleResource extends Resource
 {
     public function toArray()
     {

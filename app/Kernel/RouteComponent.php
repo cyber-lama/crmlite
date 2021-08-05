@@ -11,12 +11,14 @@ class RouteComponent
 {
     public $routes = [];
     public $uri;
+    protected $app;
 
     /**
      * @throws Exception
      */
-    public function __construct()
+    public function __construct(App $app)
     {
+        $this->app = $app;
         $routes = include __DIR__ . "/../../routes/web.php";
         foreach ($routes as $uri => $route) {
             $this->add($uri, $route);
@@ -30,7 +32,7 @@ class RouteComponent
             throw new HttpNotFoundException("Страница не найдена");
         }
         /** @var Controller $controller */
-        $controller = new $this->routes[$this->uri][0];
+        $controller = new $this->routes[$this->uri][0]($this->app);
         $methodName = $this->routes[$this->uri][1];
         return $controller->$methodName();
     }
@@ -40,7 +42,7 @@ class RouteComponent
      */
     public function add(string $uri, array $route)
     {
-        $initClass = new $route[0];
+        $initClass = new $route[0]($this->app);
         if (count($route) !== 2) {
             throw new Exception("Роут должен содердать класс и название метода", 500);
         }
