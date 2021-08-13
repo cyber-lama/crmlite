@@ -15,11 +15,11 @@ class ViewComponent
     {
         $content = file_get_contents($this->path . $viewName . ".blade.php");
 
-        $content_replace = array(
+        $content_replace = [
             '{{$title}}'    => $data["title"],
             '{{$body}}'  => $data["body"],
             '{{$author}}'=> $data["author"],
-        );
+        ];
 
         return strtr($content, $content_replace );
 
